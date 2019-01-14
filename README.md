@@ -1,9 +1,22 @@
 # js-sort
 JavaScript排序相关内容
+````
+├── LICENSE
+├── README.md
+├── imgs
+│   ├── maopao.gif
+│   ├── paixufenlei.png
+│   └── paixufuzadu.png
+├── src
+│   └── maopao // 排序方法
+│       ├── index.js
+│       └── readme.md
+└── test.html  // 测试文件
+````
 
-![排序方法](https://images2018.cnblogs.com/blog/849589/201804/849589-20180402132530342-980121409.png)
+![排序方法](./imgs/paixufenlei.png)
 
-![排序算法复杂度](https://images2018.cnblogs.com/blog/849589/201804/849589-20180402133438219-1946132192.png)
+![排序算法复杂度](./imgs/paixufuzadu.png)
 
 ## 排序算法
 
