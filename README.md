@@ -1,4 +1,6 @@
 # js-sort
+>所有的代码都是在`chrome`测试，没有对`es6+`进行编译；所有的测试结构都在`test.html`；直接在`chrome`查看`test.html`，查看`console`里面的结果对比。
+
 JavaScript排序相关内容
 ````
 ├── LICENSE
@@ -42,7 +44,9 @@ JavaScript排序相关内容
 
 `src/xuanze/index.js`中是选择排序的实现。
 ### 插入排序
+插入排序（Insertion-Sort）的算法描述是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。
 
+`src/charu/index.js`中是选择排序的实现。
 ### 希尔排序
 
 ### 快速排序
