@@ -30,14 +30,27 @@
         chrome is the best test tools;
     </div>
     <script>
-        let sortArray = [141, 222, 780, 538, 746, 725, 637, 666, 341, 125, 554, 907, 93,
-            667, 808, 452, 320, 348, 493, 843, 898, 326, 290, 62, 416, 470, 841, 810, 732,
-            214, 763, 649, 139, 211, 41, 777, 726, 459, 570, 607, 154, 146, 228, 675, 86,
-            817, 282, 561, 859, 487, 4, 513, 86, 488, 306, 628, 206, 721, 937, 419, 908,
-            293, 432, 524, 36, 551, 747, 263, 744, 642, 975, 662, 749, 329, 9, 339, 630,
-            504, 499, 495, 285, 539, 707, 707, 249, 612, 581, 774, 925, 667, 644, 122,
-            94, 638, 317, 571, 136, 79, 197, 146,94,84,67,80,17,5,79,31,277,98,88,23,34,
-            112,45,65,234,566,23,46,36456,5456,23,454,56,2,456,54,456,34,56,76,93,83];
+        let sortArray = [];
+        // 生成若干个随机整数
+        function mathRandom(num=10000) {
+            let arrRes = [];
+            for(let i=0; i<num; i++) {
+                arrRes.push(parseInt(Math.random()*100000));
+            }
+            return arrRes;
+        }
+
+        sortArray = mathRandom(10000);
+        
+        const testSortTimeAnRes = function(sortFunc, sortFuncName, needSortArray) {
+            let startTime = new Date().getTime();
+
+            let res = sortFunc(needSortArray);
+
+            let endTime = new Date().getTime();
+            console.log(`${sortFuncName}耗时：`, endTime-startTime, "ms");
+            console.log(`${sortFuncName}结果：`, res);
+        }
         /**
          * 冒泡排序方法 先把大的数据冒泡上去[升序]
          * @param {*} needSortArray 是一个待排序的init 数组【未校验】
@@ -49,8 +62,7 @@
                 return needSortArray;
             }
             const arrayLen = needSortArray.length;
-            let okFlag = false,
-                startTime = new Date().getTime();
+            let okFlag = false;
             for(let i=0; i<arrayLen-1 && !okFlag; i++) {
                 okFlag = true; // 假设已经OK
                 for(let j=0; j<arrayLen-i-1; j++) {
@@ -63,12 +75,9 @@
                     }
                 }
             }
-            let endTime = new Date().getTime();
-            console.log('冒泡排序耗时：', endTime-startTime, "ms");
-            console.log('冒泡排序结果：', needSortArray);
             return needSortArray;
         }
-        Bubble_Sort([...sortArray]);
+        testSortTimeAnRes(Bubble_Sort, '冒泡排序', [...sortArray]);
 
         /**
          * 选择排序
@@ -81,8 +90,7 @@
                 return needSortArray;
             }
             let minIndex = 0,
-                arrayLen = needSortArray.length,
-                startTime = new Date().getTime();
+                arrayLen = needSortArray.length;
             for(let i=0; i<arrayLen-1; i++) {
                 minIndex = i;
                 for(let n=i+1; n<arrayLen; n++) {
@@ -94,12 +102,36 @@
                     needSortArray[minIndex] = temp;
                 }
             }
-            let endTime = new Date().getTime();
-            console.log('选择排序耗时：', endTime-startTime, "ms");
-            console.log('选择排序结果：', needSortArray);
             return needSortArray;
         }
-        Select_Sort([...sortArray]);
+        testSortTimeAnRes(Select_Sort, '选择排序', [...sortArray]);
+
+        /**
+         * 插入排序
+         * @param {*} needSortArray 待排序数组
+         */
+        function Insertion_Sort(needSortArray=[]) {
+            const isArray = Object.prototype.toString.call(needSortArray) === '[object Array]',
+                isIntArray = needSortArray.every( item => typeof item === 'number');
+            if(!isArray || !isIntArray) { // 校验整数数组
+                return needSortArray;
+            }
+            let minIndex = 0,
+                arrayLen = needSortArray.length;
+            for(let i=1; i<arrayLen; i++) {
+                let currInsertNum = needSortArray.splice(i, 1)[0];
+                for(let j=i-1; j>=0; j--) {
+                    if(currInsertNum > needSortArray[j]) {
+                        needSortArray.splice(j+1, 0, currInsertNum);
+                        break;
+                    } else if(j===0) {
+                        needSortArray.unshift(currInsertNum);
+                    }
+                }
+            }
+            return needSortArray;
+        }
+        testSortTimeAnRes(Insertion_Sort, '插入排序', [...sortArray]);
     </script>
 </body>
 </html>
