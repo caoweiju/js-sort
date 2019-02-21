@@ -2,7 +2,7 @@
  * @Author: weiu.cao
  * @Date: 2019-02-07 23:15:45
  * @Last Modified by: weiju.cao
- * @Last Modified time: 2019-02-21 22:58:51
+ * @Last Modified time: 2019-02-21 23:17:37
 */
 
 /**
@@ -64,19 +64,19 @@ function Quick_Sort_Double(needSortArray=[], left, right) {
     if (left < right ) {
         let pivot = left,          // 设定基准值（pivot）为左侧第一个
             currPivotValue= needSortArray[pivot],
-            leftPoint = pivot + 1, // 左路探针
+            leftPoint = left, // 左路探针
             rightPoint = right, // 右路探针 左侧第一个是基准，先移动右路探针
-            temp,
-            rightPointFirstCount = 0, // 右侧探针第一次扫描
-            rightPointHasEverFindValue = false;
+            // rightPointFirstCount = 0, // 右侧探针第一次扫描
+            // rightPointHasEverFindValue = false,
+            temp;
         while(leftPoint < rightPoint) {
             // 右侧探针移动 找到小于基准值位置为止
             while(currPivotValue <= needSortArray[rightPoint] && leftPoint < rightPoint) {
                 rightPoint--;
             }
             // 检测右侧探针是否第一趟直接和左侧探针汇合都没有找到合适的元素
-            rightPointFirstCount++;
-            rightPointFirstCount === 1 && (leftPoint < rightPoint) && (rightPointHasEverFindValue=true);
+            // rightPointFirstCount++;
+            // rightPointFirstCount === 1 && (leftPoint < rightPoint) && (rightPointHasEverFindValue=true);
             // 左侧探针移动 找到大于基准值位置为止
             while(currPivotValue >= needSortArray[leftPoint] && leftPoint < rightPoint) {
                 leftPoint++;
@@ -89,12 +89,14 @@ function Quick_Sort_Double(needSortArray=[], left, right) {
         // [交换值的时候都要考虑需不需要交换，如果是右侧探针第一趟直接和左侧探针汇合都没有找到合适的元素就不能更换]
         // 如果是右侧探针第一趟直接和左侧探针汇合都没有找到合适的元素就不能更换则不换位置  否则基准和左侧指针交换值
         // 如果还没有进行比较，生成探针的时候左右探针就已经重合了需要手动对比基准值和左探针值
-        if(rightPointHasEverFindValue || needSortArray[leftPoint] < currPivotValue) {
-            needSortArray[pivot] = needSortArray[leftPoint];
-            needSortArray[leftPoint] = currPivotValue;
-        } else {
-            leftPoint = left; // 如果没有交换 说明当前基准已经是正确的基准 把做指针指向基准
-        }
+        // if(rightPointHasEverFindValue || needSortArray[leftPoint] < currPivotValue) {
+        //     needSortArray[pivot] = needSortArray[leftPoint];
+        //     needSortArray[leftPoint] = currPivotValue;
+        // } else {
+        //     leftPoint = left; // 如果没有交换 说明当前基准已经是正确的基准 把做指针指向基准
+        // }
+        needSortArray[pivot] = needSortArray[leftPoint];
+        needSortArray[leftPoint] = currPivotValue;
         Quick_Sort_Double(needSortArray, left, leftPoint-1);
         Quick_Sort_Double(needSortArray, leftPoint+1, right);
     }
