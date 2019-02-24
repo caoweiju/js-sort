@@ -262,6 +262,46 @@
             return needSortArray;
         }
         testSortTimeAnRes(Quick_Sort_Double, '双路快速排序', [...sortArray]);
+
+        /**
+         * 归并排序
+         * @param {*} needSortArray 待排序数组
+         */
+        function Merge_Sort(needSortArray=[]) {
+            const isArray = Object.prototype.toString.call(needSortArray) === '[object Array]',
+                isIntArray = needSortArray.every( item => typeof item === 'number');
+            if(!isArray || !isIntArray) { // 校验整数数组
+                return needSortArray;
+            }
+
+            const merge = (left, right) => {
+                let result = [];
+        
+                while (left.length>0 && right.length>0) {
+                    if (left[0] <= right[0]) {
+                        result.push(left.shift());
+                    } else {
+                        result.push(right.shift());
+                    }
+                }
+                // 把多余的直接追加
+                result.push(...left);
+                result.push(...right);
+            
+                return result;
+            }
+            
+            let len = needSortArray.length;
+            if (len < 2) {
+                return needSortArray;
+            }
+            let middle = Math.floor(len / 2),
+                left = needSortArray.slice(0, middle),
+                right = needSortArray.slice(middle);
+            return merge(Merge_Sort(left), Merge_Sort(right));
+            // return needSortArray;
+        }
+        testSortTimeAnRes(Merge_Sort, '归并排序', [...sortArray]);
     </script>
 </body>
 </html>
